@@ -1,3 +1,4 @@
+
 #include "tetrisPiece.h"
 
 //kind, rotation, horizontal,vertical
