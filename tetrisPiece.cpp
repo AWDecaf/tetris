@@ -1,5 +1,21 @@
-
 #include "tetrisPiece.h"
+
+int tetrisPiece::getPieceType (int pPiece, int pRotate, int pX, int pY)
+{
+	return mPieces [pPiece][pRotate][pX][pY];
+}
+
+
+int tetrisPiece::getXInitPos (int pPiece, int pRotate)
+{
+	return mPiecesInitialPosition [pPiece][pRotate][0];
+}
+
+
+int tetrisPiece::getYInitialPosition (int pPiece, int pRotate)
+{
+	return getYInitPos [pPiece][pRotate][1];
+}
 
 //kind, rotation, horizontal,vertical
 char mPieces [7][4][5][5] = {
@@ -276,21 +292,4 @@ int mPiecesInitialPosition  [7][4][2] ={
    	},
 };
 
-
-int tetrisPiece::GetPieceType (int pPiece, int pRotate, int pX, int pY)
-{
-	return mPieces [pPiece][pRotate][pX][pY];
-}
-
-
-int tetrisPiece::GetXInitPos (int pPiece, int pRotate)
-{
-	return mPiecesInitialPosition [pPiece][pRotate][0];
-}
-
-
-int tetrisPiece::GetYInitialPosition (int pPiece, int pRotate)
-{
-	return GetYInitPos [pPiece][pRotate][1];
-}
 

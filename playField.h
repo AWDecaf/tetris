@@ -19,23 +19,23 @@ public:
 
 	playField(Pieces *pPieces, int pScreenHeight);
 
-	int GetXPosInPixels(int pPos);
-	int GetYPosInPixels(int pPos);
-	bool IsFreeBlock(int pX, int pY);
-	bool IsPossibleMovement(int pX, int pY, int pPiece, int pRotation);
-	void StorePiece(int pX, int pY, int pPiece, int pRotation);
-	void DeletePossibleLines();
-	bool IsGameOver	();
+	int getXPos(int pPos);
+	int getYPos(int pPos);
+	bool isFree(int pX, int pY);
+	bool isPossible(int pX, int pY, int pPiece, int pRotation);
+	void storePiece(int pX, int pY, int pPiece, int pRotation);
+	void checkFillLines();
+	bool gameOverCheck();
 
 private:
 
-	enum { POS_FREE, POS_FILLED };			// POS_FREE = free position of the board; POS_FILLED = filled position of the board
+	enum { POS_FREE, POS_FILLED };				// POS_FREE = free position of the board; POS_FILLED = filled position of the board
 	int mBoard [Play_Field_Width][Play_Field_Height];	// Board that contains the pieces
 	Pieces *mPieces;
 	int mScreenHeight;
 
-	void InitBoard();
-	void DeleteLine (int pY);
+	void initBoard();
+	void deleteLine (int pY);
 };
 
 #endif // _playField_

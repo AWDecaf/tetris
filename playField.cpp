@@ -1,26 +1,25 @@
 #include "playField.h"
 
-playField::playField (tetrisPiece *pPieces, int pScreenHeight)
+playField::playField(tetrisPiece *pPiece, int pScreenHeight)
 {
-	// Get the screen height
-	mScreenHeight = pScreenHeight;
+	mScreenHeight = pScreenHeight; //height
 
 	// Get the pointer to the pieces class
-	mPieces = pPieces;
+	mPieces = pPiece;
 
 	//Init the board blocks with free positions
 	InitBoard();
 }
 
 
-void playField::InitBoard()
+void playField::initBoard()
 {
 	for (int i = 0; i < Play_Field_Width; i++)
 		for (int j = 0; j < Play_Field_Height; j++)
 			mBoard[i][j] = POS_FREE;
 }
 
-void playField::StorePiece (int pX, int pY, int pPiece, int pRotation)
+void playField::storePiece (int pX, int pY, int pPiece, int pRotation)
 {
 	// Store each block of the piece into the board
 	for (int i1 = pX, i2 = 0; i1 < pX + Tetris_Block; i1++, i2++)
@@ -36,21 +35,18 @@ void playField::StorePiece (int pX, int pY, int pPiece, int pRotation)
 
 
 
-bool playField::IsGameOver()
+bool playField::gameOverCheck()
 {
-	//If the first line has blocks, then, game over
 	for (int i = 0; i < Play_Field_Width; i++)
 	{
 		if (mBoard[i][0] == POS_FILLED) return true;
 	}
-
 	return false;
 }
 
 
-void playField::DeleteLine (int pY)
+void playField::deleteLine (int pY) //delete line
 {
-	// Moves all the upper lines one row down
 	for (int j = pY; j > 0; j--)
 	{
 		for (int i = 0; i < Play_Field_Width; i++)
@@ -60,13 +56,7 @@ void playField::DeleteLine (int pY)
 	}	
 }
 
-
-/* 
-======================================									
-Delete all the lines that should be removed
-====================================== 
-*/
-void playField::DeletePossibleLines ()
+void playField::checkFillLines() //check line
 {
 	for (int j = 0; j < Play_Field_Height; j++)
 	{
@@ -81,24 +71,24 @@ void playField::DeletePossibleLines ()
 	}
 }
 
-bool playField::IsFreeBlock (int pX, int pY)
+bool playField::isFree (int pX, int pY)
 {
 	if (mBoard [pX][pY] == POS_FREE) return true; else return false;
 }
 
 
-int playField::GetXPosInPixels (int pPos)
+int playField::getXPos(int pPos)
 {
 	return  ( ( Play_Field_Center - (Max_Tetris_Square_Area * (Play_Field_Width / 2)) ) + (pPos * Max_Tetris_Square_Area) );
 }
 
-int playField::GetYPosInPixels (int pPos)
+int playField::getYPos(int pPos)
 {
 	return ( (mScreenHeight - (Tetris_Block * Play_Field_Height)) + (pPos * Max_Tetris_Square_Area) );
 }
 
 
-bool playField::IsPossibleMovement (int pX, int pY, int pPiece, int pRotation)
+bool playField::isPossibleMovement (int pX, int pY, int pPiece, int pRotation)
 {
 	// Checks collision with pieces already stored in the board or the board limits
 	// This is just to check the 5x5 blocks of a piece with the appropiate area in the board
@@ -119,7 +109,7 @@ bool playField::IsPossibleMovement (int pX, int pY, int pPiece, int pRotation)
 			if (j1 >= 0)	
 			{
 				if ((mPieces->GetBlockType (pPiece, pRotation, j2, i2) != 0) &&
-					(!IsFreeBlock (i1, j1))	)
+					(!IsFree (i1, j1))	)
 					return false;
 			}
 		}
